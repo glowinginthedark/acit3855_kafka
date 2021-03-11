@@ -45,7 +45,8 @@ services:
       - my-db:/var/lib/mysql
   receiver:
     image: receiver
-    ports: '8080:8080'
+    ports: 
+      - '8080:8080'
     depends_on: 
       - "kafka"
       - "db"
