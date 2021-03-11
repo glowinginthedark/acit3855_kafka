@@ -6,4 +6,4 @@ schedule_request:
 events:
   hostname: kafka-vm-acit-3855.westus2.cloudapp.azure.com
   port: 9092
-  topic: events
+  topic: boat_request
