@@ -157,7 +157,24 @@ def create_schedule_request(body):
 flaskapp = connexion.FlaskApp(__name__, specification_dir='')
 flaskapp.add_api('openapi.yaml', strict_validation=True, validate_responses=True)
 
+def r():
+    hostname = "%s:%d" % ("kafka-vm-acit-3855.westus2.cloudapp.azure.com", 9092)
+    client = KafkaClient(hosts=hostname)
+    topic = client.topics['boat_request']
+    consumer = topic.get_simple_consumer(
+        auto_offset_reset=OffsetType.LATEST,
+        reset_offset_on_start=True)
+
+    consumer = topic.get_simple_consumer(
+        consumer_group="mygroup",
+        auto_offset_reset=OffsetType.LATEST
+    )
+    a = consumer.consume()
+    print(a)
+    consumer.commit_offsets()
+
 if __name__=="__main__":
+    r()
     t1 = Thread(target=process_messages)
     t1.setDaemon(True)
     t1.start()
