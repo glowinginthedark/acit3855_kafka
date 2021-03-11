@@ -1,0 +1,11 @@
+version: 1
+datastore: 
+  user: user
+  password: 
+  hostname: kafka-vm-acit-3855.westus2.cloudapp.azure.com
+  port: 3306
+  db: boat_request
+events:
+  hostname: kafka-vm-acit-3855.westus2.cloudapp.azure.com
+  port: 9092
+  topic: events

@@ -1,0 +1,167 @@
+openapi: 3.0.0
+info:
+  description: This is a simple API for a boat taxi service
+  version: "1.0.0"
+  title: Boat hail
+  contact:
+    email: antineutron@outlook.ie
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: customers
+    description: Methods available to customers
+  - name: boat drivers
+    description: Operations available to boat drivers
+paths:
+  /orders/boat-request:
+    get:
+      tags:
+        - customers
+      summary: Gets boat requests created after a given time
+      operationId: app.get_boat_requests
+      description: Cets boat requests created after a given time
+      parameters:
+        - name: timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+      responses:
+        '200':
+          description: Successfully returned a list of boat request events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BoatRideRequest'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    # post:
+    #   tags:
+    #     - customers
+    #   summary: creates a boat ride request
+    #   operationId: app.create_request
+    #   description: Adds a new request to the system
+    #   responses:
+    #     '201':
+    #       description: request created
+    #     '400':
+    #       description: 'invalid request, object invalid'
+    #   requestBody:
+    #     content:
+    #       application/json:
+    #         schema:
+    #           $ref: '#/components/schemas/BoatRideRequest'
+    #     description: Boat ride request item to Add
+  /order/boat-schedule:
+    get:
+      tags:
+        - customers
+      summary: Gets boat schedule requests created after a given time
+      operationId: app.get_scheduled_boat_requests
+      description: Cets boat schedule requests created after a given time
+      parameters:
+        - name: timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+      responses:
+        '200':
+          description: Successfully returned a list of boat request events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BoatRideScheduledRequest'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    # post:
+    #   tags: 
+    #     - customers
+    #   summary: creates a boat ride request in advance
+    #   operationId: app.create_schedule_request
+    #   description: Adds a new scheduled request to the system
+    #   responses:
+    #     '201':
+    #       description: request created
+    #     '400':
+    #       description: 'invalid request, object invalid'
+    #   requestBody:
+    #     content:
+    #       application/json:
+    #         schema:
+    #           $ref: '#/components/schemas/BoatRideScheduledRequest'
+    #     description: Boat ride request item to add
+components:
+  schemas:
+    BoatRideRequest:
+      type: object
+      required:
+        - user_id
+        - username
+        - boat_type
+        - timestamp
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        username:
+          type: string
+          example: George_Costanza
+        timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        boat_type:
+          type: string
+          example: Dhingy
+    BoatRideScheduledRequest:
+      required:
+        - user_id
+        - username
+        - boat_type
+        - timestamp
+        - schedule_time
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        username:
+          type: string
+          example: George_Costanza
+        timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        boat_type:
+          type: string
+          example: Dhingy
+        schedule_time:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+      type: object

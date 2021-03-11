@@ -1,0 +1,9 @@
+version: 1
+boat_request:
+  url: http://localhost:8090/orders/boat-request
+schedule_request:
+  url: http://localhost:8090/order/boat-schedule
+events:
+  hostname: kafka-vm-acit-3855.westus2.cloudapp.azure.com
+  port: 9092
+  topic: events

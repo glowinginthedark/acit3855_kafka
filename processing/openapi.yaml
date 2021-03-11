@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  description: This API provides event stats
+  version: "1.0.0"
+  title: Stats API
+  contact:
+    email: antineutron@outlook.ie
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: customers
+    description: Methods available to customers
+  - name: boat drivers
+    description: Operations available to boat drivers
+paths:
+  /stats:
+    get:
+      summary: Gets the event stats
+      operationId: app.get_stats
+      description: Gets Blood Pressure and Heart Rate processsed statistics
+      responses:
+        '200':
+          description: Successfully returned a list of blood pressure events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/BoatRequestStats'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    BoatRequestStats:
+      required:
+      - num_boat_requests
+      - num_boat_schedule_requests
+      - top_customer_boat_request
+      - top_customer_boat_schedule_request
+      properties:
+        num_boat_requests:
+          type: integer
+          example: 500000
+        num_boat_schedule_requests:
+          type: integer
+          example: 500000
+        top_customer_boat_request:
+          type: string
+          example: user_123
+        top_customer_boat_schedule_request:
+          type: string
+          example: user_123
+      type: object

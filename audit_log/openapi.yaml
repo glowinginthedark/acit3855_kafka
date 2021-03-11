@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  description: Boat request app audit API
+  version: "1.0.0"
+  title: Audit API
+  contact:
+    email: antineutron@outlook.ie
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /boat-request:
+    get:
+      tags:
+        - customers
+      summary: Gets a boat requests from history
+      operationId: app.get_boat_request
+      description: Gets a boat request from the event store
+      parameters:
+        - name: index
+          in: query
+          description: Get the boat request index in the event store
+          schema:
+            type: integer
+            example: 70
+      responses:
+        '200':
+          description: Successfully returned a boat request event
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/BoatRideRequest'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /boat-schedule-request:
+    get:
+      tags:
+        - customers
+      summary: Gets boat schedule requests from history
+      operationId: app.get_scheduled_boat_request
+      description: Gets a boat schedule request from the event store
+      parameters:
+        - name: index
+          in: query
+          description: Gets the index for the boat schedule request
+          schema:
+            type: integer
+            example: 70
+      responses:
+        '200':
+          description: Successfully returned a scheduled boat request event
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/BoatRideScheduledRequest'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    BoatRideRequest:
+      type: object
+      required:
+        - user_id
+        - username
+        - boat_type
+        - timestamp
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        username:
+          type: string
+          example: George_Costanza
+        timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        boat_type:
+          type: string
+          example: Dhingy
+    BoatRideScheduledRequest:
+      required:
+        - user_id
+        - username
+        - boat_type
+        - timestamp
+        - schedule_time
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        username:
+          type: string
+          example: George_Costanza
+        timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        boat_type:
+          type: string
+          example: Dhingy
+        schedule_time:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+      type: object
