@@ -7,6 +7,7 @@ import logging
 import logging.config
 import datetime
 import requests
+from flask_cors import CORS, cross_origin
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -118,6 +119,8 @@ def populate_stats():
 
 
 flaskapp = connexion.FlaskApp(__name__, specification_dir='')
+CORS(flaskapp.app)
+flaskapp.app.config['CORS_HEADERS']='Content-Type'
 flaskapp.add_api('openapi.yaml', strict_validation=True, validate_responses=True)
 
 # if __name__=="__main__":
