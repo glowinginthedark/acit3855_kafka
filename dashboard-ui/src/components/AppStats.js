@@ -35,21 +35,18 @@ export default function AppStats() {
                 <table className={"StatsTable"}>
 					<tbody>
 						<tr>
-							<th>Blood Pressure</th>
-							<th>Heart Rate</th>
+							<th>Boat Requests</th>
+							<th>Boat Schedule Requests</th>
 						</tr>
 						<tr>
-							<td># BP: {stats['num_bp_readings']}</td>
-							<td># HR: {stats['num_hr_readings']}</td>
+							<td># requests: {stats['num_boat_requests']}</td>
+							<td># schedule requests: {stats['num_boat_schedule_requests']}</td>
 						</tr>
 						<tr>
-							<td colspan="2">Max BP Systolic: {stats['max_bp_sys_reading']}</td>
+							<td colspan="2">Top customer (boat request): {stats['top_customer_boat_request']}</td>
 						</tr>
 						<tr>
-							<td colspan="2">Max BR Diastolic: {stats['max_bp_dia_reading']}</td>
-						</tr>
-						<tr>
-							<td colspan="2">Max HR: {stats['max_bp_sys_reading']}</td>
+							<td colspan="2">Top customer (boat schedule request): {stats['top_customer_boat_schedule_request']}</td>
 						</tr>
 					</tbody>
                 </table>
