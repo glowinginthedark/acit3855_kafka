@@ -49,6 +49,7 @@ services:
       - TARGET_ENV=test
     volumes:
       - /home/azureuser/config/receiver:/config
+      - /home/azureuser/logs:/logs
     ports: 
       - '8080:8080'
     depends_on: 
@@ -59,6 +60,7 @@ services:
       - TARGET_ENV=test
     volumes:
       - /home/azureuser/config/storage:/config
+      - /home/azureuser/logs:/logs
     ports: 
       - '8090:8090'
     depends_on: 
@@ -70,6 +72,7 @@ services:
       - TARGET_ENV=test
     volumes:
       - /home/azureuser/config/processing:/config
+      - /home/azureuser/logs:/logs
     network_mode: "host"
     depends_on: 
       - "kafka"
@@ -80,6 +83,7 @@ services:
       - TARGET_ENV=test
     volumes:
       - /home/azureuser/config/audit_log:/config
+      - /home/azureuser/logs:/logs
     ports: 
       - '8110:8110'
     depends_on: 
