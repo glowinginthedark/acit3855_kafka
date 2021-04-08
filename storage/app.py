@@ -97,7 +97,7 @@ def get_boat_requests(timestamp, end_timestamp):
     end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
     print(timestamp_datetime)
 
-    readings = session.query(Request).filter(and_(Request.date_created >= start_timestamp_datetime, Request.date_created < end_timestamp_datetime))
+    readings = session.query(Request).filter(and_(Request.date_created >= timestamp_datetime, Request.date_created < end_timestamp_datetime))
 
     results_list = []
 
@@ -136,7 +136,7 @@ def get_scheduled_boat_requests(timestamp, end_timestamp):
     end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
     print(timestamp_datetime)
 
-    readings = session.query(ScheduleRequest).filter(and_(ScheduleRequest.date_created >= start_timestamp_datetime, ScheduleRequest.date_created < end_timestamp_datetime))
+    readings = session.query(ScheduleRequest).filter(and_(ScheduleRequest.date_created >= timestamp_datetime, ScheduleRequest.date_created < end_timestamp_datetime))
 
     results_list = []
 
