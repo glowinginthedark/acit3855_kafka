@@ -7,6 +7,7 @@ import pymysql
 import logging
 import logging.config
 import datetime
+import time
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -65,7 +66,19 @@ DB_SESSION = sessionmaker(bind=DB_ENGINE)
 def process_messages():
     """ Process event messages """
     hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
-    client = KafkaClient(hosts=hostname)
+    
+    retries = 0 
+
+    while retries <= app_config['events']['max_retries']:
+        try:
+            logger.info("Trying to connect to kafka. retry #" + str(retries + 1))
+            client = KafkaClient(hosts=hostname)
+            break
+        except:
+            logger.error("kafka connection failed.")
+            time.sleep(app_config['datastore']['retry_sleep_duration'])
+            retries += 1
+
     topic = client.topics[str.encode(app_config["events"]["topic"])]
     
     consumer = topic.get_simple_consumer(consumer_group=b'event_group',

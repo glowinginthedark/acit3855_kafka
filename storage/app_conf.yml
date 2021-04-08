@@ -9,3 +9,5 @@ events:
   hostname: kafka-vm-acit-3855.westus2.cloudapp.azure.com
   port: 9092
   topic: boat_request
+  max_retries: 10
+  retry_sleep_duration: 1
