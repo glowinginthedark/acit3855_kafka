@@ -70,7 +70,7 @@ def populate_stats():
             "last_updated": "2021-01-18T07:17:57.615342Z"
         }
 
-    br_url = app_config['eventstore']['url'] + '/orders/boat-request?timestamp=' + data['last_updated']
+    br_url = app_config['eventstore']['url'] + '/orders/boat-request?timestamp=' + data['last_updated'] + "&end_timestamp=" + current_timestamp
     br_response = requests.get(br_url)
     
     if br_response.status_code != 200:
@@ -79,7 +79,7 @@ def populate_stats():
     logger.info("Number of Boat request events received: " 
         + str(len(br_response.json())))
 
-    bsr_url = app_config['eventstore']['url'] +  '/order/boat-schedule?timestamp=' + data['last_updated']
+    bsr_url = app_config['eventstore']['url'] +  '/order/boat-schedule?timestamp=' + data['last_updated'] + "&end_timestamp=" + current_timestamp
     bsr_response = requests.get(bsr_url)
 
     if bsr_response.status_code != 200:
@@ -118,7 +118,7 @@ def populate_stats():
     # else:
     #     data["top_customer_boat_schedule_request"] = "NA"
 
-    data["last_updated"] = str(datetime.datetime.now()).replace(" ", "T") + "Z"
+    data["last_updated"] = current_timestamp
 
     with open(app_config['datastore']['filename'], 'w') as outfile:
         json.dump(data, outfile)    

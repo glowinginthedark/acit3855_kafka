@@ -10,6 +10,7 @@ import datetime
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import and_
 from base import Base
 from schedule_request import ScheduleRequest
 from request import Request
@@ -87,15 +88,16 @@ def process_messages():
 
 # boat requests
 
-def get_boat_requests(timestamp):
+def get_boat_requests(timestamp, end_timestamp):
     """ Gets boat requests created after a given time """
 
     session = DB_SESSION()
 
     timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
+    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%S")
     print(timestamp_datetime)
 
-    readings = session.query(Request).filter(Request.date_created >= timestamp_datetime)
+    readings = session.query(Request).filter(and_(BloodPressure.date_created >= start_timestamp_datetime, BloodPressure.date_created < end_timestamp_datetime))
 
     results_list = []
 
