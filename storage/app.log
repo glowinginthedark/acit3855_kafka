@@ -1,0 +1,4 @@
+2021-04-08 06:49:14,677 - basicLogger - INFO - Connecting to DB. Hostname:kafka-vm-acit-3855.westus2.cloudapp.azure.com, Port:3306
+2021-04-08 06:49:14,727 - basicLogger - INFO - Connecting to DB. Hostname:kafka-vm-acit-3855.westus2.cloudapp.azure.com, Port:3306
+2021-04-08 06:49:14,759 - basicLogger - INFO - Trying to connect to kafka. try #1
+2021-04-08 06:49:15,186 - basicLogger - INFO - Message: {'type': 'boat_request', 'datetime': '2021-04-08T13:33:30', 'payload': {'boat_type': 'Dhingy', 'timestamp': '2016-08-29T09:12:50.001Z', 'user_id': 'd290f1ee-6c54-4b01-90e6-d701748f0851', 'username': 'George_Costanza'}}
