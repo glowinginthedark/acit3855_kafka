@@ -58,6 +58,8 @@ def populate_stats():
     """ Periodically update stats """
     logger.info("Start Periodic Processing")
 
+    current_timestamp = str(datetime.datetime.now()).replace(" ", "T") + "Z"
+
     try:
         with open(app_config['datastore']['filename']) as json_file:
             data = json.load(json_file)
