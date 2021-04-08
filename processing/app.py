@@ -97,7 +97,7 @@ def populate_stats():
     if len(br_response.json()) > 0:
         br_user_dict = {}
 
-        for br in br_response.json():
+        for br in br_response.json():   
             if br['username'] not in br_user_dict:
                 br_user_dict[br['username']] = 1
             else:
