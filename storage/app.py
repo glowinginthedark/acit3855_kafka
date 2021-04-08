@@ -69,14 +69,14 @@ def process_messages():
     
     retries = 0 
 
-    while retries <= app_config['events']['max_retries']:
+    while retries <= int(app_config['events']['max_retries']):
         try:
             logger.info("Trying to connect to kafka. try #" + str(retries + 1))
             client = KafkaClient(hosts=hostname)
             break
         except:
             logger.error("kafka connection failed.")
-            time.sleep(app_config['events']['retry_sleep_duration'])
+            time.sleep(int(app_config['events']['retry_sleep_duration']))
             retries += 1
 
     topic = client.topics[str.encode(app_config["events"]["topic"])]
