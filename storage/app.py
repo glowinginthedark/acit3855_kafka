@@ -180,7 +180,7 @@ def create_schedule_request(body):
     logger.debug('Stored event schedule_request with a unique id of ' + body['user_id'] + body['timestamp'])
 
 flaskapp = connexion.FlaskApp(__name__, specification_dir='')
-flaskapp.add_api('openapi.yaml', strict_validation=True, validate_responses=True)
+flaskapp.add_api('openapi.yaml', base_path="/storage", strict_validation=True, validate_responses=True)
 
 
 if __name__=="__main__":

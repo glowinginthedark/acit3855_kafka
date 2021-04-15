@@ -108,9 +108,12 @@ def get_scheduled_boat_request(index):
         return { "message": "Not Found"}, 404
 
 flaskapp = connexion.FlaskApp(__name__, specification_dir='')
-CORS(flaskapp.app)
-flaskapp.app.config['CORS_HEADERS']='Content-Type'
-flaskapp.add_api('openapi.yaml', strict_validation=True, validate_responses=True)
+
+if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
+    CORS(flaskapp.app)
+    flaskapp.app.config['CORS_HEADERS']='Content-Type'
+
+flaskapp.add_api('openapi.yaml', base_path="/audit_log", strict_validation=True, validate_responses=True)
 
 if __name__=="__main__":
     # t1 = Thread(target=process_messages)

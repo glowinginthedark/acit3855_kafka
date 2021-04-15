@@ -77,7 +77,7 @@ def create_schedule_request(body):
     return "", 201
 
 flaskapp = connexion.FlaskApp(__name__, specification_dir='')
-flaskapp.add_api('openapi.yaml', strict_validation=True, validate_responses=True)
+flaskapp.add_api('openapi.yaml', base_path="/receiver", strict_validation=True, validate_responses=True)
 
 if __name__=="__main__":
     flaskapp.run(port=8080)
