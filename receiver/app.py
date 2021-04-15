@@ -35,6 +35,7 @@ while retries <= int(app_config['events']['max_retries']):
         logger.info("Trying to connect to kafka. try #" + str(retries + 1))
         client = KafkaClient(hosts=app_config['events']['hostname'] + ':' + str(app_config['events']['port']))
         topic = client.topics[str.encode(app_config['events']['topic'])]
+        producer = topic.get_sync_producer()
         break
     except:
         logger.error("kafka connection failed.")
@@ -43,8 +44,6 @@ while retries <= int(app_config['events']['max_retries']):
 
 def create_request(body):
     logger.info('Received event create_request request with a unique id of ' + body['user_id'] + body['timestamp'])
-
-    producer = topic.get_sync_producer()
 
     msg = {
         "type": "boat_request",
@@ -60,8 +59,6 @@ def create_request(body):
 
 def create_schedule_request(body):
     logger.info('Received event schedule_request request with a unique id of ' + body['user_id'] + body['timestamp'])
-
-    producer = topic.get_sync_producer()
 
     msg = {
         "type": "boat_schedule_request",
