@@ -83,7 +83,7 @@ services:
       - /home/azureuser/config/processing:/config
       - /home/azureuser/logs:/logs
       - processing-db:/data
-    network_mode: "host"
+    # network_mode: "host"
     ports:
       - "8100"
     networks:
